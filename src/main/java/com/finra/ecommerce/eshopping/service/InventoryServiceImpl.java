@@ -18,19 +18,16 @@ public class InventoryServiceImpl implements InventoryService {
 	public boolean checkInventory(String productId, int qty) {
 		if(isNumeric(productId)){
 			int productInt = Integer.parseInt(productId);
-			return (productDAO.getProductIfAvailable(productInt, qty) !=null);
+			return productDAO.getProductIfAvailable(productInt, qty);
 		}		
 		return false;
 	}
 
 	private boolean isNumeric(String str)  
 	{  
-		try  
-		{  
+		try{  
 			double d = Double.parseDouble(str);  
-		}  
-		catch(NumberFormatException nfe)  
-		{  
+		}catch(NumberFormatException nfe){  
 			return false;  
 		}  
 		return true;  

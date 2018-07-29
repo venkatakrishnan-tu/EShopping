@@ -3,6 +3,7 @@ package com.finra.ecommerce.eshopping.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.finra.ecommerce.eshopping.model.Order;
 import com.finra.ecommerce.eshopping.model.Product;
 
 /*
@@ -42,50 +42,31 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	@Override
-	public Product getProductIfAvailable(int id, int qty) {
-		
+	public boolean getProductIfAvailable(int id, int qty) {
 		Map<String, Object> params = new HashMap<String, Object>();
         params.put("productId",new Integer(id));
         params.put("qty",new Integer(qty));
-        
 		String sql = "SELECT * FROM products WHERE product_id=:productId AND quantity >=:qty";
-		
-		Product result = namedParameterJdbcTemplate.queryForObject(
-                    sql,
-                    params,
-                    new ProductMapper());        
-        return result;
+		List<Product> result = namedParameterJdbcTemplate.query(sql, params,  new ProductMapper());
+        return (result.size() > 0);
 	}
  
-	 
-
 	@Override
 	public Product findById(int id) {
-		
 		Map<String, Object> params = new HashMap<String, Object>();
         params.put("productId",new Integer(id));
-        
 		String sql = "SELECT * FROM products WHERE product_id=:productId";
-		
-		Product result = namedParameterJdbcTemplate.queryForObject(
-                    sql,
-                    params,
-                    new ProductMapper());        
+		Product result = namedParameterJdbcTemplate.queryForObject(sql,params,new ProductMapper());        
         return result;
-        
 	}
 
 
 	@Override
 	public void update(Product product, int orderQty) {
 		String sql = "UPDATE products SET quantity =:qty  WHERE product_id=:productId";
-		 
 		//Once the product is shipped, update the inventory
 		int decreaseQty = product.getQuantity()-orderQty;
-		 
 		namedParameterJdbcTemplate.update(sql,  new MapSqlParameterSource("qty", new Integer(decreaseQty)).addValue("productId", product.getProductId()));
-		 
-	 
 	}
 	
 	@Override

@@ -10,5 +10,5 @@ import com.finra.ecommerce.eshopping.model.User;;
 public interface UserDao {
 	User findById(long id);	
 	List<User> findAll();
-
+	int updateUser(User user);
 }

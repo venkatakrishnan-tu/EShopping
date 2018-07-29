@@ -6,17 +6,26 @@ import java.util.Date;
  * @author Poornima
  */
 public class User {
-	private long userId;
+	private int userId;
     private String name;
     private String email;
     private String password;
     private Date created;
 
+    public User(){
+    	super();
+    }
     
-	public long getUserId() {
+    public User(int userId, String name, String email) {
+		this.userId = userId;
+		this.name = name;
+		this.email = email;
+	}
+    
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(long userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public String getName() {

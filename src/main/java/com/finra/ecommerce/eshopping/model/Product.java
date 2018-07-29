@@ -13,13 +13,26 @@ public class Product {
 	private int quantity;
 	private Date created;
 	
+	public Product(){
+		super();
+	}
+	
+	public Product(int productId, String title, String price, String description, int quantity, Date created) {
+		super();
+		this.productId = productId;
+		this.title = title;
+		this.price = price;
+		this.description = description;
+		this.quantity = quantity;
+		this.created = created;
+	}
+	
 	public int getQuantity() {
 		return quantity;
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
 	public int getProductId() {
 		return productId;
 	}

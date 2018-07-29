@@ -30,7 +30,7 @@ CREATE TABLE orders (
   city VARCHAR(30),
   zip VARCHAR(30),
   status VARCHAR(30),
-  comment VARCHAR(30),
+  comment VARCHAR(60),
   total_price DECIMAL(10, 2),
   credit_card_num VARCHAR(30) not null,
   user_id_fk INTEGER,

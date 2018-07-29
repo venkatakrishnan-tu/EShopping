@@ -8,7 +8,6 @@ import com.finra.ecommerce.eshopping.model.Order;
  *
  */
 public interface OrderService {
-
-	Order getOrder(int orderId);
- 
+	public Order getProduct(int orderId);
+	public void persistOrder(Order order);
 }

@@ -47,45 +47,48 @@ public class OrderDaoImpl implements OrderDao {
 
 	@Override
 	public Order findById(int id) {
-
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id",new Integer(id));
-
 		String sql = "SELECT * FROM orders WHERE order_id=:id";
-
 		Order result = namedParameterJdbcTemplate.queryForObject(
 				sql,
 				params,
 				new OrderMapper());        
 		return result;
-
 	}
 
 	@Override
 	public List<Order> findAllOrders() {
-
 		Map<String, Object> params = new HashMap<String, Object>();
-
 		String sql = "SELECT * FROM orders";
-
 		List<Order> result = namedParameterJdbcTemplate.query(sql, params, new OrderMapper());
-
 		return result;
 
 	}
 
 
 	@Override
-	public Order processOrder(int id, String status) {
-		//Map<String, Object> params = new HashMap<String, Object>();
-		//params.put("orderStatus", status);	
-		//params.put("orderId", id);	
-		
+	public void processOrder(int id, String status) {
 		String sql = "UPDATE orders SET status =:orderStatus  WHERE order_id=:orderId";
-
-		Order result = new Order();
 		namedParameterJdbcTemplate.update(sql,  new MapSqlParameterSource("orderStatus", status).addValue("orderId", new Integer(id)));
-		return result;
+	}
+
+	@Override
+	public void persistOrder(Order order) {
+		String sql = "UPDATE orders SET name = :name, address = :address, city = :city, zip = :zip, status = :status, comment = :comment, total_price = :totalPrice, credit_card_num = :creditCard, quantity = :qty  WHERE order_id = :orderId";
+
+		namedParameterJdbcTemplate.update(sql,  new MapSqlParameterSource()
+                									.addValue("name", order.getName())
+                									.addValue("address", order.getAddress())
+                									.addValue("city", order.getCity())
+                									.addValue("zip", order.getZip())
+                									.addValue("status", order.getStatus())
+                									.addValue("status", order.getStatus())
+                									.addValue("comment", order.getComment())
+                									.addValue("totalPrice", order.getTotalPrice())
+                									.addValue("creditCard", order.getCreditCardNo())
+                									.addValue("qty", order.getQuantity())
+                									.addValue("orderId", order.getOrderId()));
 	}
 
 }

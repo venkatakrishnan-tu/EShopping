@@ -17,7 +17,13 @@ public class OrderServiceImpl implements OrderService {
 	
  
 	@Override
-	public Order getOrder(int orderId) {
+	public Order getProduct(int orderId) {
 		return orderDAO.findById(orderId);
+	}
+
+
+	@Override
+	public void persistOrder(Order order) {
+		orderDAO.persistOrder(order);
 	}
 }

@@ -8,7 +8,8 @@ import com.finra.ecommerce.eshopping.model.Order;
  * @author Poornima
  */
 public interface OrderDao {
-	Order findById(int id);
-	Order processOrder(int id, String status);
-	List<Order> findAllOrders();
+	public Order findById(int id);
+	public void processOrder(int id, String status);
+	public List<Order> findAllOrders();
+	public void persistOrder(Order order);
 }

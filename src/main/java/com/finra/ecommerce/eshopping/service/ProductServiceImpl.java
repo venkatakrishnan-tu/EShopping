@@ -3,23 +3,23 @@ package com.finra.ecommerce.eshopping.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.finra.ecommerce.eshopping.dao.OrderDao;
 import com.finra.ecommerce.eshopping.dao.ProductDao;
-
-/*
- * @author Poornima
+import com.finra.ecommerce.eshopping.model.Product;
+/**
+ * 
+ * @author poornima
+ *
  */
 @Component
-public class PaymentServiceImpl implements PaymentService {
-
-	@Autowired
-	OrderDao orderDAO;
-	
+public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductDao productDAO;
 	
+ 
 	@Override
-	public boolean chargePayment(String creditCardNumber, double amount) {
-		return true;
+	public Product getProduct(int productId) {
+		return productDAO.findById(productId);
 	}
+
+ 
 }
